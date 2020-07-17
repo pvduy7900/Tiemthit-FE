@@ -26,7 +26,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Nav, Form, FormControl, Button, Navbar, Dropdown, DropdownButton, ButtonGroup } from "react-bootstrap"
+import { Nav, Form, FormControl, Button, Navbar, Dropdown, DropdownButton, ButtonGroup, Row, Col } from "react-bootstrap"
 import AuthService from "./services/AuthService";
 
 import Login from "./components/Login";
@@ -41,6 +41,8 @@ const App = () => {
   // const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   // const [showAdminBoard, setShowAdminBoard] = useState(false);
   // const [currentUser, setCurrentUser] = useState(undefined);
+    const [username, setUsername] = useState(localStorage.getItem("name"));
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token') !== null);
 
   // useEffect(() => {
   //   const user = AuthService.getCurrentUser();
@@ -54,25 +56,36 @@ const App = () => {
 
   const logOut = () => {
     AuthService.logout();
+    setLoggedIn(false);
   };
-  const userName = localStorage.getItem('name')
+
+  const setLoginUser = (token, user) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('name', user);
+    setUsername(user);
+    setLoggedIn(true);
+  }
+
   return (
     <Router>
       <Navbar bg="light" variant="light">
         <Navbar.Brand href="#home">Butcher</Navbar.Brand>
 
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Trang chủ</Nav.Link>
-          <Nav.Link href="#features">Bảng giá</Nav.Link>
-          <Nav.Link href="#pricing">Món ngon</Nav.Link>
+          <Nav.Link href="home">Trang chủ</Nav.Link>
+          <Nav.Link href="price">Bảng giá</Nav.Link>
+          <Nav.Link href="delicious">Món ngon</Nav.Link>
         </Nav>
 
         <Nav className="ml-auto">
-          {true ?
-            <DropdownButton as={ButtonGroup} title={userName} id="bg-vertical-dropdown-1">
-              <Dropdown.Item onClick={() => { logOut() }}>Log out</Dropdown.Item>
+
+          {loggedIn ?
+            <DropdownButton title={username} id="bg-vertical-dropdown-1">
+              <Dropdown.Item onClick={() => logOut()}>Log out</Dropdown.Item>
             </DropdownButton>
-            : <div></div>}
+            :
+            <Nav.Link id="bg-vertical-dropdown-1" href="login">Tài khoản</Nav.Link>}
+
         </Nav>
 
 
@@ -153,7 +166,7 @@ const App = () => {
       <div className="container mt-3">
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/login" render={(props) => <Login {...props} setLoginUser={setLoginUser} />} />
           {/* <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />

@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Container, Tab, Tabs } from 'react-bootstrap';
+// import history from '../history';
 
-const ItemsList = () => {
 
+const Login = ({ setLoginUser, history }) => {
+
+  const [name, setName] = useState([])
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState([]);
+
+const signUp = async () =>{
+  const data = await fetch('http://localhost:5000/users', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name: name, email: email, password: password })
+  });
+
+}
 
   const loginWithEmail = async () => {
     console.log("12", email)
@@ -18,17 +33,15 @@ const ItemsList = () => {
       body: JSON.stringify({ email: email, password: password })
     });
 
-    console.log("456")
     const loginUser = await data.json();
-    console.log("this is loginuser",loginUser);
-    const user = loginUser.data.user.name;
-    console.log("cai nay ne",user)
-    const token = loginUser.data.token
-    console.log(token)
-    localStorage.setItem("token", token)
-    localStorage.setItem("name",user)
-    
 
+    const user = loginUser.data.user.name;
+
+    const token = loginUser.data.token
+
+    setLoginUser(token, user);
+
+    history.push('/home')
   }
 
   return (
@@ -55,26 +68,21 @@ const ItemsList = () => {
 
       <Tab eventKey="profile" title="Sign up">
         <div className="form-group">
-          <label>First name</label>
-          <input type="text" className="form-control" placeholder="First name" />
-        </div>
-
-        <div className="form-group">
-          <label>Last name</label>
-          <input type="text" className="form-control" placeholder="Last name" />
+          <label>Name</label>
+          <input type="text" className="form-control" placeholder="First name" onChange={(e) => setName(e.target.value)} />
         </div>
 
         <div className="form-group">
           <label>Email address</label>
-          <input type="email" className="form-control" placeholder="Enter email" />
+          <input type="email" className="form-control" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
         </div>
 
         <div className="form-group">
           <label>Password</label>
-          <input type="password" className="form-control" placeholder="Enter password" />
+          <input type="password" className="form-control" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)} />
         </div>
 
-        <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+        <button onClick={() => signUp(name, email, password)} className="btn btn-primary btn-block">Sign Up</button>
         <p className="forgot-password text-right">
           Already registered <a href="#">sign in?</a>
         </p>
@@ -86,4 +94,4 @@ const ItemsList = () => {
   );
 };
 
-export default ItemsList;
+export default Login;

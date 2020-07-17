@@ -26,11 +26,12 @@ const login = (username, password) => {
 };
 
 const logout = () => {
-  localStorage.removeItem("user");
+  localStorage.removeItem("name");
+  localStorage.removeItem("token");
 };
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  return JSON.parse(localStorage.getItem("name"));
 };
 
 export default {
