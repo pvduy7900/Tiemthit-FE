@@ -32,6 +32,7 @@ import AuthService from "./services/AuthService";
 import Login from "./components/Login";
 // import Register from "./components/Register"; // what?
 import Home from "./components/Homepage";
+import SignUp from "./components/SignUp";
 // import Profile from "./components/Profile"; //what?
 // import BoardUser from "./components/BoardUser"; //what?
 // import BoardModerator from "./components/BoardModerator"; // what?
@@ -41,8 +42,8 @@ const App = () => {
   // const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   // const [showAdminBoard, setShowAdminBoard] = useState(false);
   // const [currentUser, setCurrentUser] = useState(undefined);
-    const [username, setUsername] = useState(localStorage.getItem("name"));
-    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token') !== null);
+  const [username, setUsername] = useState(localStorage.getItem("name"));
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token') !== null);
 
   // useEffect(() => {
   //   const user = AuthService.getCurrentUser();
@@ -59,17 +60,11 @@ const App = () => {
     setLoggedIn(false);
   };
 
-  const setLoginUser = (token, user) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('name', user);
-    setUsername(user);
-    setLoggedIn(true);
-  }
-
   return (
     <Router>
+      {/* day la napbar */}
       <Navbar bg="light" variant="light">
-        <Navbar.Brand href="#home">Butcher</Navbar.Brand>
+        <Navbar.Brand href="home">Butcher</Navbar.Brand>
 
         <Nav className="mr-auto">
           <Nav.Link href="home">Trang chủ</Nav.Link>
@@ -88,13 +83,15 @@ const App = () => {
 
         </Nav>
 
-
+        <Button variant="outline-primary"> <Nav.Link href="SignUp">Sign up</Nav.Link></Button>
 
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-primary">Search</Button>
         </Form>
       </Navbar>
+      {/* ket thuc navbar */}
+
 
       {/* <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -166,9 +163,11 @@ const App = () => {
       <div className="container mt-3">
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
-          <Route exact path="/login" render={(props) => <Login {...props} setLoginUser={setLoginUser} />} />
-          {/* <Route exact path="/register" component={Register} />
-            <Route exact path="/profile" component={Profile} />
+          <Route exact path="/login" render={(props) => <Login {...props} />} />
+          <Route exact path="/signup" component={SignUp} />
+
+
+          {/*<Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} /> */}
