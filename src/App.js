@@ -1,59 +1,22 @@
-// import React from 'react';
-// import './App.css';
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-// import Login from "./components/Login";
-// import Homepage from "./components/Homepage";
-// import Product from "./components/Product";
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-// function App() {
-//   return (
-//     <Router>
-//       <Switch>
-//         <Route path="/home"><Homepage/></Route>
-//         <Route path="/login"><Login /></Route>
-//         <Route path="/product"><Product /></Route>
-//       </Switch>
-//     </Router>
-//   );
-// }
-
-// export default App;
-
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Nav, Form, FormControl, Button, Navbar, Dropdown, DropdownButton, ButtonGroup, Row, Col } from "react-bootstrap"
+import { Nav, Form, FormControl, Button, Navbar, Dropdown, DropdownButton } from "react-bootstrap"
 import AuthService from "./services/AuthService";
 
 import Login from "./components/Login";
-// import Register from "./components/Register"; // what?
 import Home from "./components/Homepage";
 import SignUp from "./components/SignUp";
-// import Profile from "./components/Profile"; //what?
-// import BoardUser from "./components/BoardUser"; //what?
-// import BoardModerator from "./components/BoardModerator"; // what?
-// import BoardAdmin from "./components/BoardAdmin";// what?
+import Cart from "./components/Cart";
+
 
 const App = () => {
-  // const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-  // const [showAdminBoard, setShowAdminBoard] = useState(false);
-  // const [currentUser, setCurrentUser] = useState(undefined);
-  const [username, setUsername] = useState(localStorage.getItem("name"));
+
+  // const [username, setUsername] = useState(localStorage.getItem("name"));
+  const username = localStorage.getItem("name")
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token') !== null);
-
-  // useEffect(() => {
-  //   const user = AuthService.getCurrentUser();
-
-  //   if (user) {
-  //     setCurrentUser(user);
-  //     setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-  //     setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-  //   }
-  // }, []);
 
   const logOut = () => {
     AuthService.logout();
@@ -62,7 +25,7 @@ const App = () => {
 
   return (
     <Router>
-      {/* day la napbar */}
+      {/* day la navbar */}
       <Navbar bg="light" variant="light">
         <Navbar.Brand href="home">Butcher</Navbar.Brand>
 
@@ -84,7 +47,7 @@ const App = () => {
         </Nav>
 
         <Button variant="outline-primary"> <Nav.Link href="SignUp">Sign up</Nav.Link></Button>
-
+        <Button variant="outline-primary"> <Nav.Link href="cart"> Giỏ hàng </Nav.Link></Button>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-primary">Search</Button>
@@ -92,90 +55,62 @@ const App = () => {
       </Navbar>
       {/* ket thuc navbar */}
 
-
-      {/* <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            bezKoder
-          </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
-              </Link>
-            </li>
-
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
-                </Link>
-              </li>
-            )}
-
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
-
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
-          </div>
-
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
-                  LogOut
-                </a>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-            </div>
-          )}
-        </nav> */}
+{/* jumbotron here */}
+{/* ket thuc jumbotron */}
 
       <div className="container mt-3">
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
           <Route exact path="/login" render={(props) => <Login {...props} />} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/cart" component={Cart} />
 
-
-          {/*<Route exact path="/profile" component={Profile} />
-            <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} /> */}
         </Switch>
       </div>
-      {/* </div> */}
+
+      {/* start footer */}
+      <div className="main-footer">
+        <div className="container">
+          <div className="row ">
+            {/* column 1 */}
+            <div className="col-md-4 col-sm-5">
+              <h4>lorem ipsum</h4>
+              <ul>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+              </ul>
+            </div>
+            {/* column 2 */}
+            <div className="col-md-4 col-sm-5">
+              <h4>lorem ipsum</h4>
+              <ul>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+              </ul>
+            </div>
+            {/* column 3 */}
+            <div className="col-md-4 col-sm-6">
+              <h4>lorem ipsum</h4>
+              <ul>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+                <li>lorem ipsum</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* stop footer */}
+
     </Router >
   );
 };
 
 export default App;
+
+

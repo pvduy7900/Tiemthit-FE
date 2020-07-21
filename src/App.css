@@ -1,5 +1,12 @@
 
 
+/* footer css */
+ul {
+  list-style-type: none;
+}
+
+
+/* end footer css */
 
 
 /* Login page css */
@@ -75,3 +82,16 @@ body, html, .App, #root, .auth-wrapper {
   color: #167bff;
 }
   /* done login page css */
+
+  /* cart o day */
+  .cart > div > div {
+    border: 1px solid black;
+    display:flex;
+    align-items: center;
+  }
+  .sanpham {
+    flex-direction:column;
+    align-items: flex-start !important;
+  }
+  /* cart end o day */
+
