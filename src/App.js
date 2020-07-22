@@ -26,7 +26,7 @@ const App = () => {
   return (
     <Router>
       {/* day la navbar */}
-      <Navbar bg="light" variant="light">
+      <Navbar bg="light" variant="light" fixed="top">
         <Navbar.Brand href="home">Butcher</Navbar.Brand>
 
         <Nav className="mr-auto">
@@ -55,10 +55,12 @@ const App = () => {
       </Navbar>
       {/* ket thuc navbar */}
 
-{/* jumbotron here */}
-{/* ket thuc jumbotron */}
+      {/* jumbotron here */}
 
-      <div className="container mt-3">
+
+      {/* ket thuc jumbotron */}
+
+      <div className="container mt-3 cateAndProduct">
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
           <Route exact path="/login" render={(props) => <Login {...props} />} />
@@ -67,46 +69,6 @@ const App = () => {
 
         </Switch>
       </div>
-
-      {/* start footer */}
-      <div className="main-footer">
-        <div className="container">
-          <div className="row ">
-            {/* column 1 */}
-            <div className="col-md-4 col-sm-5">
-              <h4>lorem ipsum</h4>
-              <ul>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-              </ul>
-            </div>
-            {/* column 2 */}
-            <div className="col-md-4 col-sm-5">
-              <h4>lorem ipsum</h4>
-              <ul>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-              </ul>
-            </div>
-            {/* column 3 */}
-            <div className="col-md-4 col-sm-6">
-              <h4>lorem ipsum</h4>
-              <ul>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-                <li>lorem ipsum</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* stop footer */}
-
     </Router >
   );
 };

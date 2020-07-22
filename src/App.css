@@ -1,13 +1,5 @@
 
 
-/* footer css */
-ul {
-  list-style-type: none;
-}
-
-
-/* end footer css */
-
 
 /* Login page css */
 * {
@@ -95,3 +87,21 @@ body, html, .App, #root, .auth-wrapper {
   }
   /* cart end o day */
 
+  /* home page css start */
+.cateAndProduct {
+    padding-top: 100px;
+}
+/* homepage csss :end */
+
+
+/* footer css */
+ul {
+  list-style-type: none;
+}
+.footer-box {
+  border-top : 1px solid black;
+ background-color: black;
+ color:white;
+}
+
+/* end footer css */

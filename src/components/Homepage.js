@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./homepage.css";
 import { Row, Col } from 'react-bootstrap'
 import ProductComponent from './Product'
+import Footer from "./Footer"
 
 export default function Homepage() {
     const [productList, setProductList] = useState([])
@@ -34,26 +35,34 @@ export default function Homepage() {
 
     return (
         <div>
-            <div className="danhmuc d-flex">
-                {categoryList.map((e) => <h5 onClick={() => {
+            <div className="container">
+                <div className="danhmuc d-flex">
+                    {categoryList.map((e) => <h5 onClick={() => {
 
-                    getProductByCategory(e._id)
+                        getProductByCategory(e._id)
 
-                }} style={{ marginLeft: "30px" }}>{e.name} | </h5>)}
+                    }} style={{ marginLeft: "30px" }}>{e.name} | </h5>)}
+                </div>
+
+                <div>
+                    <h4 className="sanphamphobien">Sản phẩm phổ biến</h4>
+                    <Row>
+                        {displayList.map((e) => {
+                            return (
+                                <Col lg={3}>
+                                    <ProductComponent data={e} key={e._id} />
+                                </Col>
+                            );
+                        })}
+                    </Row>
+                </div>
+
             </div>
 
             <div>
-                <h4>Sản phẩm phổ biến</h4>
-                <Row>
-                    {displayList.map((e) => {
-                        return (
-                            <Col lg={3}>
-                                <ProductComponent data={e} key={e._id} />
-                            </Col>
-                        );
-                    })}
-                </Row>
+                <Footer bgColor="black" author="Duy" />
             </div>
+
         </div>
     )
 }
