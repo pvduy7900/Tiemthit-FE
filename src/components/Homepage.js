@@ -18,11 +18,11 @@ export default function Homepage(props) {
     const getCategories = async () => {
         const data = await fetch('http://localhost:5000/category');
         const category = await data.json();
-        console.log(category)
+        console.log('categories', category)
         setCategoryList(category.data)
     }
     // tối xem lại
-    const getProductByCategory = async (categoryID) => {
+    const getProductByCategory = (categoryID) => {
         const filterProductList = productList.filter(item => item.categoryID === categoryID)
         setDisplayList(filterProductList)
     }
@@ -31,7 +31,7 @@ export default function Homepage(props) {
         setDisplayList(filter)
     }
     useEffect(()=>{
-        getProductByName(props.productName)
+        getProductByName(props.nameProduct)
     }, [props.nameProduct])
 
 
@@ -67,6 +67,7 @@ export default function Homepage(props) {
 
                     <div>
                         <h4 className="sanphamphobien">Sản phẩm</h4>
+
                         <Row>
                             {displayList.map((e) => {
                                 return (

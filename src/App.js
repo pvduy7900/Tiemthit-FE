@@ -28,14 +28,14 @@ const App = () => {
     setToken("")
   }
 
-  const handleProductName = (product) => {
+  const sendProductName = (product) => {
     setProductName(product)
   }
 
   return (
     <Router>
 
-      <NavbarApp userName={userName} sendProductName={handleProductName} onLogout={onLogout} />
+      <NavbarApp userName={userName} sendProductName={sendProductName} onLogout={onLogout} />
       <div className="container mt-3 cateAndProduct">
         <Switch>
           <Route exact path={["/", "/home"]} render={(props) => <Home nameProduct={productName} {...props} />} />

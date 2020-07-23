@@ -9,7 +9,7 @@ const NavbarApp = (props) => {
 
     const sendProductName = (e) => {
         e.preventDefault();
-        props.onProductName(nameProduct);
+        props.sendProductName(nameProduct);
 
     }
 
