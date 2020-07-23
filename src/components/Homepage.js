@@ -9,14 +9,14 @@ export default function Homepage(props) {
     const [displayList, setDisplayList] = useState([])
     const [categoryList, setCategoryList] = useState([])
     const getProduct = async () => {
-        const data = await fetch('http://localhost:5000/product');
+        const data = await fetch('https://tiemthit.herokuapp.com/product');
         const product = await data.json();
         console.log(product)
         setProductList(product.data)
         setDisplayList(product.data)
     }
     const getCategories = async () => {
-        const data = await fetch('http://localhost:5000/category');
+        const data = await fetch('https://tiemthit.herokuapp.com/category');
         const category = await data.json();
         console.log('categories', category)
         setCategoryList(category.data)
