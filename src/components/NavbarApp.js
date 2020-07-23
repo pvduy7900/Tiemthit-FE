@@ -17,7 +17,7 @@ const NavbarApp = (props) => {
         e.preventDefault();
         const token = localStorage.getItem("token")
         console.log("token", token)
-        await fetch(`http://localhost:5000/auth/logout`, {
+        await fetch(`https://tiemthit.herokuapp.com/auth/logout`, {
             token: token
         });
         localStorage.removeItem("user");

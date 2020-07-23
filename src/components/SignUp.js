@@ -12,7 +12,7 @@ export default function SignUp() {
 
     const signUp = async (e) => {
         e.preventDefault();
-        const res = await fetch('http://localhost:5000/users', {
+        const res = await fetch('https://tiemthit.herokuapp.com/users', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

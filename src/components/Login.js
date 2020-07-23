@@ -17,7 +17,7 @@ const Login = (props) => {
       return;
     }
 
-    const data = await fetch('http://localhost:5000/auth/login', {
+    const data = await fetch('https://tiemthit.herokuapp.com/auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -27,9 +27,6 @@ const Login = (props) => {
     });
 
     const res = await data.json()
-
-    console.log("resspon", res)
-
     if (res.data && res.data.token) {
       localStorage.setItem("token", res.data.token);
       props.onLogin(res.data.user.name, res.data.token) // truyen ten va token qua app.js
