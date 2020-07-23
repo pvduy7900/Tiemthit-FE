@@ -3,11 +3,13 @@ import React, { useState } from 'react'
 const Cartitem = (props) => {
  
     const [countItem,setCountItem] = useState([1])
+    const totalItemPrice = countItem * props.data.price
+    
     return (
 
         <div>
             <div className="container">
-                <div className="cart">
+                <div>
                     <div className="row">
                         <div className="col-6">
                             sản phẩm
@@ -32,7 +34,7 @@ const Cartitem = (props) => {
                                 onChange={(e) => setCountItem(e.target.value)}
                             />
                         </div>
-                        <div className="col-2">{countItem * props.data.price}</div>
+                        <div className="col-2">{totalItemPrice}</div>
                     </div>
                 </div>
             </div>

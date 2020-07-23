@@ -10,12 +10,16 @@ export default function Cart() {
         const cartListFromLocalStorage = JSON.parse(localStorage.getItem("cart")) || []
         setCartList(cartListFromLocalStorage)
     }
+    if(cartList)
+    {
+        console.log(cartList)
+    }
     useEffect(() => {
         getCartList()
     }, [])
 
     return (
-        <div>
+        <div className="cartSpacing">
             <h2>Giỏ hàng</h2>
             {cartList.map((e) => {
                 return (
@@ -26,11 +30,12 @@ export default function Cart() {
                 <Button variant="outline-primary"> <Nav.Link href="home">Quay lại cửa hàng</Nav.Link></Button>
                 <div className="d-flex">
                     <div>
-                        {/* Tổng tiền :{cartList.reduce(previousScore, currentScore, index)=> previousScore.+currentScore} */}
+                    {/* {cartList.map((e) => e.totalItemPrice).reduce()} */}
                     </div>
                     <Button variant="outline-primary"> <Nav.Link href="home">Thanh toán</Nav.Link></Button>
                 </div>
             </div>
+            reduce
 
         </div>
     )

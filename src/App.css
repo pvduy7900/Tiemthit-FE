@@ -89,7 +89,7 @@ body, html, .App, #root, .auth-wrapper {
 
   /* home page css start */
 .cateAndProduct {
-    padding-top: 100px;
+    padding: 30px;
 }
 /* homepage csss :end */
 
@@ -105,3 +105,36 @@ ul {
 }
 
 /* end footer css */
+
+/* login page */
+
+.login {
+  /* max-width: 600px; */
+
+}
+/* end login page */
+.signup {
+  /* max-width: 1000px; */
+}
+.jumbo{
+  padding-top: 100px;
+  color:white;
+  
+}
+
+.bgImage {
+  background-image: url("https://3.bp.blogspot.com/-d_ILoVm3kfY/VhscmjDI9wI/AAAAAAAApA8/jM4aKwM0UrQ/s1600/th%25E1%25BB%258Bt%2Bba%2Bch%25E1%25BB%2589%2Bnh%25E1%25BA%25ADt.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+}
+.footer {
+  padding-top: 20px;
+}
+.cart{
+  margin-top: 60px;
+}
+
+.cartSpacing {
+  margin-top: 100px;
+}
