@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Form } from 'react-bootstrap';
 
 import { useHistory } from "react-router-dom";
+import "./SignUp.css";
+
 
 export default function SignUp() {
 
@@ -12,7 +14,7 @@ export default function SignUp() {
 
     const signUp = async (e) => {
         e.preventDefault();
-        const res = await fetch('https://tiemthit.herokuapp.com/users', {
+        const res = await fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -20,12 +22,17 @@ export default function SignUp() {
             },
             body: JSON.stringify({ name: name, email: email, password: password }),
         });
+        if(res.status === 200){
+            console.log("đăng kí thành công")
+        }else{
+            console.log("đăng kí không thành công")
+        }
         history.push("/home")
     }
 
     return (
         <div className="d-flex justify-content-center">
-            <Form eventKey="profile" title="Sign up" className="signup">
+            <Form eventKey="profile" title="Sign up" className="signup login-main">
                 <div className="form-group">
                     <label>Name</label>
                     <input type="text" className="form-control" placeholder="First name" onChange={(e) => setName(e.target.value)} />

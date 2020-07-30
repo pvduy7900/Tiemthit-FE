@@ -5,27 +5,41 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import NavbarApp from "./components/NavbarApp"
-import Login from "./components/Login";
-import Home from "./components/Homepage";
-import SignUp from "./components/SignUp";
+import Login from "./components/Login/Login";
+import Home from "./components/Homepage/Homepage";
+import SignUp from "./components/SignUp/SignUp";
 import Cart from "./components/Cart";
+import CreateProduct from "./components/CreateProduct/CreateProduct";
 
 
 const App = () => {
 
-  const [userName, setUserName] = useState("")
-  const [token, setToken] = useState("")
+  const [user, setUser] = useState("")
   const [productName, setProductName] = useState("")
 
-  const onLogin = (userName, token) => {
-    console.log('onLogin()', userName, token)
-    setUserName(userName);
-    setToken(token)
+  // refresh app call function, send token to back end, back end 
+  useEffect(() => {
+    reLoadPage()
+  }, [])
+
+
+  const reLoadPage = async () => {
+    const token = localStorage.getItem("token")
+    const data = await fetch(`http://localhost:5000/users/me`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ token: token }),
+    });
+    const res = await data.json()
+    setUser(res.data)
   }
 
-  const onLogout = () => {
-    setUserName("");
-    setToken("")
+  const onLogin = (user) => {
+    console.log('onLogin()', user)
+    setUser(user);
   }
 
   const sendProductName = (product) => {
@@ -35,15 +49,15 @@ const App = () => {
   return (
     <Router>
 
-      <NavbarApp userName={userName} sendProductName={sendProductName} onLogout={onLogout} />
-      <div className="container mt-3 cateAndProduct">
-        <Switch>
-          <Route exact path={["/", "/home"]} render={(props) => <Home nameProduct={productName} {...props} />} />
-          <Route exact path="/login" render={(props) => <Login onLogin={onLogin} />} />
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/cart" component={Cart} />
-        </Switch>
-      </div>
+      <NavbarApp user={user} sendProductName={sendProductName}  />
+      <Switch>
+        <Route exact path={["/", "/home"]} render={(props) => <Home user={user} nameProduct={productName} {...props} />} />
+        <Route exact path="/login" render={(props) => <Login onLogin={onLogin} />} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/createNewProduct" component={CreateProduct} />
+
+      </Switch>
     </Router >
   );
 };
