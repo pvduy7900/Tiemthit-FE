@@ -30,7 +30,7 @@ const Login = (props) => {
     const res = await data.json()
     if (res.data && res.data.token) {
       localStorage.setItem("token", res.data.token);
-      props.onLogin(res.data.user, res.data.token) // truyen project user va token qua app.js
+      props.onLogin(res.data.user) // truyen project user va token qua app.js
       history.push("/home")
     } else {
       setMessage(res.message)

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import "./CreateProduct.css"
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Alert } from "react-bootstrap"
 import { useHistory } from "react-router-dom";
 
 
@@ -13,6 +13,12 @@ export default function CreateProduct() {
 
     const [categoryID, setCategoryId] = useState("")
     const [categoryList, setCategoryList] = useState([])
+
+    const [show, setShow] = useState(false);
+    const [msg, setMsg] = useState("")
+
+
+
     let history = useHistory();
 
     const createProducts = async (e) => {
@@ -33,13 +39,16 @@ export default function CreateProduct() {
             },
             body: JSON.stringify({ name, price, description, preparing, categoryID, img, token: token })
         })
+
         const res = await data.json()
         if (res.status === 200) {
-            console.log("tao product thanh cong")
+            console.log("không thành công",res.status)
+            setMsg("không Thành công")
         } else {
-            console.log("res",res.status)
+            console.log("Thành công",res.status)
+            setMsg("Thành công")
         }
-        history.push("/createNewProduct")
+
     }
 
     const getCategories = async () => {
@@ -47,6 +56,11 @@ export default function CreateProduct() {
         const category = await data.json();
         console.log('categories', category)
         setCategoryList(category.data)
+    }
+    const fun = (e) => {
+        setShow(true)
+        createProducts(e);
+        
     }
 
     useEffect(() => {
@@ -103,8 +117,10 @@ export default function CreateProduct() {
 
                     </Form.Group>
                 </div>
-
-                <Button variant="primary" onClick={(e) => createProducts(e)}>
+                <Alert show={show} variant={"dark"} dismissible onClose={() => setShow(false)}>
+                    {msg}
+                </Alert>
+                <Button variant="primary" onClick={(e) => fun(e)}>
                     Submit
                 </Button>
             </Form>

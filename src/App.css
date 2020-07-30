@@ -100,9 +100,7 @@ body, html, .App, #root, .auth-wrapper {
 
 }
 /* end login page */
-.signup {
-  max-width: 1000px;
-}
+
 .jumbo{
   padding-top: 100px;
   color:white;
@@ -130,3 +128,27 @@ body, html, .App, #root, .auth-wrapper {
   display: flex;
   justify-content: space-between;
 }
+/* nav-bar */
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  padding-top: 1px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+#lblCartCount {
+    font-size: 25px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -10px; 
+}
+/* navbar end */

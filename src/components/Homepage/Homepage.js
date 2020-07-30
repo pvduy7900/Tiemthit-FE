@@ -8,6 +8,7 @@ export default function Homepage(props) {
     const [productList, setProductList] = useState([])
     const [displayList, setDisplayList] = useState([])
     const [categoryList, setCategoryList] = useState([])
+
     const user = props.user
 
     const getProduct = async () => {
@@ -15,6 +16,7 @@ export default function Homepage(props) {
         const product = await data.json();
         setProductList(product.data)
         setDisplayList(product.data)
+
     }
     const getCategories = async () => {
         const data = await fetch('http://localhost:5000/category');
@@ -30,6 +32,21 @@ export default function Homepage(props) {
         const filter = productList.filter(e => e.name.includes(name))
         setDisplayList(filter)
     }
+
+    const getQuantity = (e) =>{
+        console.log("quan from home",e )
+        props.getQuantity(e)
+    }
+    // this one just show you how to replace product by index
+    //     const updateProduct = (newProductUpdate) =>{
+    //         const productIndex = productList.findIndex(e=> e._id === newProductUpdate._id)
+    //         const newProductList = [...productList]
+    //         console.log("index",productIndex)
+    //         newProductList[productIndex] = newProductUpdate
+    //         console.log("tes1",newProductList)
+    //         setDisplayList(newProductList)
+    //     }
+
     useEffect(() => {
         getProductByName(props.nameProduct)
     }, [props.nameProduct])
@@ -39,7 +56,7 @@ export default function Homepage(props) {
         getCategories()
         getProduct()
     }, [])
-
+    if (!displayList) return <div></div>
     return (
         <div>
             {/* jumbotron here */}
@@ -76,8 +93,11 @@ export default function Homepage(props) {
                                     getProductByCategory(e._id)
 
                                 }} style={{ marginLeft: "30px", color: "white", background: "red" }}>{e.name}</button>)}
+
                         </div>
-                        {/* nút tất cả */}
+                        <button className="btn btn-amber" style={{ marginLeft: "30px", color: "white", background: "red" }} onClick={() => getProduct()} >
+                            Tất cả
+                        </button>
                     </Row>
                 </div>
                 <div className="result-section">
@@ -85,7 +105,7 @@ export default function Homepage(props) {
                         {displayList.map((e) => {
                             return (
                                 <Col sm={3} className="result-items">
-                                    <ProductComponent user={user} data={e} key={e._id} />
+                                    <ProductComponent getProduct={getProduct} getQuantity={getQuantity} user={user} data={e} key={e._id} />
                                 </Col>
                             );
                         })}

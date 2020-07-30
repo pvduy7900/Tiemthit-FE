@@ -8,14 +8,14 @@ const ProductComponent = (props) => {
     const user = props.user;
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
-
+    const token = localStorage.getItem("token")
 
     // modal start
     const [show, setShow] = useState(false);
-
+    const handleClose1 = () => {
+        setShow(false);
+    }
     const handleClose = async (e) => {
-
-        const token = localStorage.getItem("token")
 
         if (!name || !price || !token) {
             console.log("Need more details");
@@ -28,21 +28,43 @@ const ProductComponent = (props) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, price, token, id:e })
+            body: JSON.stringify({ name, price, token, id: e })
         })
-        const res = await data.json()
+        const res = await data.json() // this is new product list from now
         if (res.status === 200) {
             console.log("update thanh cong")
         } else {
             console.log("res", res.status)
         }
-        
+        props.getProduct(res.data)
         setShow(false);
 
     }
     const handleShow = () => setShow(true);
 
     // modal end
+
+    const Delete = async (e) => {
+
+        const data = await fetch("http://localhost:5000/product", {
+            method: "DELETE",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token, id: e })
+        })
+
+        const res = await data.json()
+        if (res.status === 200) {
+            console.log("delete thanh cong")
+        } else {
+            console.log("res", res.status)
+        }
+        console.log("delete", res.data)
+        props.getProduct()
+        setShow(false);
+    }
 
     const postItemToCart = (data) => {
         let cart = JSON.parse(localStorage.getItem('cart')) || []
@@ -52,9 +74,14 @@ const ProductComponent = (props) => {
                 return
             }
         }
+        data.count = 1;
         cart.push(data)
         localStorage.setItem("cart", JSON.stringify(cart))
+        props.getQuantity(cart.length)
+
     }
+
+
     return (
         <Card style={{ maxWidth: '20rem' }} className="card">
             <Card.Img
@@ -82,13 +109,12 @@ const ProductComponent = (props) => {
                         <Button variant="primary" onClick={handleShow} >
                             Update
                         </Button>
-                        <Modal show={show} onHide={handleClose} animation={false}>
+                        <Modal show={show} onHide={handleClose1} animation={false}>
                             <Modal.Header closeButton>
-                                <Modal.Title>Modal heading</Modal.Title>
+                                <Modal.Title>Update Modal</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <Form className="container">
-
                                     <Form.Group>
                                         <img src={props.data.img} alt="product" width="100px" />
 
@@ -102,17 +128,23 @@ const ProductComponent = (props) => {
                                 </Form>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
+                                <Button variant="secondary" onClick={handleClose1}>
                                     Close
-                            </Button>
+                                </Button>
                                 <Button variant="primary" onClick={() => handleClose(props.data._id)}>
                                     Save Changes
-                            </Button>
+                                </Button>
                             </Modal.Footer>
                         </Modal>
                     </div>
                     :
                     null
+                }
+                {user && user.role === "admin" ?
+                    <Button variant="primary" onClick={() => Delete(props.data._id)}>
+                        Delete
+                </Button>
+                    : null
                 }
                 {errorMsg ? (<Alert variant="danger">{errorMsg}</Alert>) : null}
             </Card.Body>

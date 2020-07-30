@@ -16,7 +16,7 @@ const App = () => {
 
   const [user, setUser] = useState("")
   const [productName, setProductName] = useState("")
-
+  const [quan, setQuan] = useState("")
   // refresh app call function, send token to back end, back end 
   useEffect(() => {
     reLoadPage()
@@ -45,13 +45,15 @@ const App = () => {
   const sendProductName = (product) => {
     setProductName(product)
   }
-
+  const getQuantity = (quan) => {
+    setQuan(quan)
+  }
   return (
     <Router>
 
-      <NavbarApp user={user} sendProductName={sendProductName}  />
+      <NavbarApp user={user} sendProductName={sendProductName} quan={quan}/>
       <Switch>
-        <Route exact path={["/", "/home"]} render={(props) => <Home user={user} nameProduct={productName} {...props} />} />
+        <Route exact path={["/", "/home"]} render={(props) => <Home getQuantity={getQuantity} user={user} nameProduct={productName} {...props} />} />
         <Route exact path="/login" render={(props) => <Login onLogin={onLogin} />} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/cart" component={Cart} />
