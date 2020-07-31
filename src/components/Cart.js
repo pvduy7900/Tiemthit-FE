@@ -51,22 +51,20 @@ export default function Cart() {
                                 <Cartitem data={e} key={e._id} cartList={cartList} setCartList={setCartList} />
                             );
                         })}
-                         <Alert show={show} variant={"dark"} dismissible onClose={() => setShow(false)}>
-                                    Thành công
+                        <Alert show={show} variant={"dark"} dismissible onClose={() => setShow(false)}>
+                            Thành công
                                 </Alert>
                         <div className="d-flex" style={{ justifyContent: "space-between" }}>
                             <Button variant="outline-primary"> <Nav.Link href="home">Quay lại cửa hàng</Nav.Link></Button>
-                            <div className="d-flex">
-                                <div>
-                                    {total}
-                                </div>
-                               
-                                <Button variant="outline-primary" onClick={() => setShow(true)}>
+                            <div className="total-box">
+                               Tổng tiền:  {total}
+                            </div>
 
-                                <Nav.Link href="home">Thanh toán</Nav.Link>
+                            <div className="d-flex">
+                                <Button variant="outline-primary" onClick={() => setShow(true)}>
+                                    Thanh toán
                                 </Button>
-                               
-                                
+
                             </div>
                         </div>
                     </tbody>

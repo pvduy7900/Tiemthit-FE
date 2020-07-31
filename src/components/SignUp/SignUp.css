@@ -1,9 +1,4 @@
-.login-main{
-    margin-top: 100px;
+.top{
+    margin-top: 150px;
     max-width: 600px;
-    align-items: center;
-
 }
-.signup {
-    max-width: 1000px;
-  }

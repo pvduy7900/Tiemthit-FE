@@ -5,7 +5,7 @@ const NavbarApp = (props) => {
     const [nameProduct, setNameProduct] = useState("")
 
     const user = props.user;
-    let cart = JSON.parse(localStorage.getItem('cart')) || []
+
     const sendProductName = (e) => {
         e.preventDefault();
         props.sendProductName(nameProduct);
@@ -49,20 +49,22 @@ const NavbarApp = (props) => {
                 <Nav className="ml-auto">
 
                     {user && user.name ?
-                        <DropdownButton title={user.name} id="bg-vertical-dropdown-1">
+                        <DropdownButton title={user.name} variant="outline-gray" className="cart-dropdown" id="bg-vertical-dropdown-1">
                             <Dropdown.Item onClick={(e) => logOut(e)}>Log out</Dropdown.Item>
                         </DropdownButton>
                         :
                         <Nav.Link id="bg-vertical-dropdown-1" href="login">Tài khoản</Nav.Link>}
                 </Nav>
 
-                <Button variant="outline-primary"> <Nav.Link href="signup">Sign up</Nav.Link></Button>
+                <Button variant="outline-gray" className="button"> <Nav.Link href="signup">Sign up</Nav.Link></Button>
 
-                <Button variant="outline-primary"> <Nav.Link href="cart"> Giỏ hàng </Nav.Link></Button>
+                <Button variant="outline-gray" className="button"> <Nav.Link href="cart"> Giỏ hàng </Nav.Link></Button>
                 <span class='badge badge-warning' id='lblCartCount'> {props.quan} </span>
+
                 <Form inline onSubmit={sendProductName}>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={(e) => setNameProduct(e.target.value)} />
-                    <Button variant="outline-primary">Tìm kiếm</Button>
+                    <FormControl type="text" placeholder="Search" className="mr-sm-2
+                    " onChange={(e) => setNameProduct(e.target.value)} />
+                    <Button variant="outline-gray" className="button">Tìm kiếm</Button>
                 </Form>
 
             </Navbar>

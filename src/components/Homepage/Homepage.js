@@ -29,7 +29,7 @@ export default function Homepage(props) {
         setDisplayList(filterProductList)
     }
     const getProductByName = name => {
-        const filter = productList.filter(e => e.name.includes(name))
+        const filter = productList.filter(e => e.name.toLowerCase().includes(name.toLowerCase()))
         setDisplayList(filter)
     }
 

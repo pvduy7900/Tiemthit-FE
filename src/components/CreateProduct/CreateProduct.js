@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import "./CreateProduct.css"
-import { Form, Button, Alert } from "react-bootstrap"
+import { Form, Button, Alert, Container } from "react-bootstrap"
 import { useHistory } from "react-router-dom";
 
 
@@ -42,10 +42,10 @@ export default function CreateProduct() {
 
         const res = await data.json()
         if (res.status === 200) {
-            console.log("không thành công",res.status)
+            console.log("không thành công", res.status)
             setMsg("không Thành công")
         } else {
-            console.log("Thành công",res.status)
+            console.log("Thành công", res.status)
             setMsg("Thành công")
         }
 
@@ -60,7 +60,7 @@ export default function CreateProduct() {
     const fun = (e) => {
         setShow(true)
         createProducts(e);
-        
+
     }
 
     useEffect(() => {
@@ -68,34 +68,23 @@ export default function CreateProduct() {
     }, [])
 
     return (
-        <div className="onTop">
+        <Container className="onTop">
 
             <Form className="sizeForm">
-                <div className="d-flex justify-content-center">
+                <div>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Tên sản phẩm</Form.Label>
                         <Form.Control type="text" placeholder="nhập tên sản phẩm" onChange={(e) => setName(e.target.value)} />
-                        <Form.Text className="text-muted">
-                            Sth here.
-                    </Form.Text>
-
+                        
                         <Form.Label>Giá</Form.Label>
                         <Form.Control type="number" placeholder="nhập giá" onChange={(e) => setPrice(e.target.value)} />
-                        <Form.Text className="text-muted">
-                            Sth here.
-                    </Form.Text>
-
+                      
                         <Form.Label>Description</Form.Label>
                         <Form.Control type="text" placeholder="mô tả" onChange={(e) => setDescription(e.target.value)} />
-                        <Form.Text className="text-muted">
-                            Sth here.
-                    </Form.Text>
-
+                       
                         <Form.Label>Preparing</Form.Label>
                         <Form.Control type="text" placeholder="chuẩn bị" onChange={(e) => setPreparing(e.target.value)} />
-                        <Form.Text className="text-muted">
-                            Sth here.
-                    </Form.Text>
+                        
                     </Form.Group>
 
                     <Form.Group controlId="exampleForm.ControlSelect1">
@@ -104,6 +93,7 @@ export default function CreateProduct() {
                             {categoryList.map((e) => <option value={e._id}>{e.name}
                             </option>)}
                         </Form.Control>
+
                     </Form.Group>
 
                     <Form.Group>
@@ -111,7 +101,7 @@ export default function CreateProduct() {
                         <Form.Control type="text" placeholder="Link hình" onChange={(e) => setImg(e.target.value)} />
                         <Form.Text className="text-muted">
                             Sth here.
-                        </Form.Text>
+                            </Form.Text>
 
                         <Form.File label="Tải ảnh lên" />
 
@@ -122,9 +112,11 @@ export default function CreateProduct() {
                 </Alert>
                 <Button variant="primary" onClick={(e) => fun(e)}>
                     Submit
-                </Button>
+    </Button>
             </Form>
 
-        </div>
+
+        </Container>
+
     )
 }
